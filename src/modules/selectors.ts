@@ -1,8 +1,17 @@
+import { AxiosError } from "axios";
 import { RootState } from ".";
-import { User } from "../types";
+import { ProductsData } from "../types";
 
-export const selectUserList = (state: RootState): User[] | undefined =>
-  state.userList.data;
+export const selectProductsData = (
+  state: RootState,
+): ProductsData | undefined => state.productsData.data;
 
-// export const selectLoadingUserList = (state: RootState): boolean =>
-//   state.userList.loading;
+export const selectSearchProductId = (state: RootState): number | undefined =>
+  state.productsData.searchProductId;
+
+// export const selectLoadingProductsData = (state: RootState): boolean =>
+//   state.productsData.loading;
+
+export const selectProductsDataError = (
+  state: RootState,
+): AxiosError | undefined => state.productsData.error;

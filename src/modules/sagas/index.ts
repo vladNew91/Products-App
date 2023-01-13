@@ -1,3 +1,3 @@
-import userList from "./userList";
+import productsData from "./productsData";
 
-export const UserListRequestSaga = userList;
+export const ProductsDataRequestSaga = productsData;

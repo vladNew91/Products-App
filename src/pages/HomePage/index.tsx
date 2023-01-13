@@ -1,10 +1,10 @@
-import { HomeContainer, UserListContainer } from "../../containers";
+import { ProductsTableContainer, HeaderContainer } from "../../containers";
 
 export const HomePage: React.FC = (): JSX.Element => {
   return (
     <>
-      <HomeContainer />
-      <UserListContainer />
+      <HeaderContainer />
+      <ProductsTableContainer />
     </>
   );
 };

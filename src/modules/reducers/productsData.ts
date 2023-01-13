@@ -1,33 +1,35 @@
 import { AxiosError } from "axios";
-import { UserListAction } from "../actions";
-import { User } from "../../types";
+import { ProductsDataAction } from "../actions";
+import { ProductsData } from "../../types";
 import {
-  USER_LIST_FAILURE,
-  USER_LIST_REQUEST,
-  USER_LIST_SUCCESS,
+  SEARCH_PRODUCT_ID,
+  PRODUCTS_DATA_FAILURE,
+  PRODUCTS_DATA_REQUEST,
+  PRODUCTS_DATA_SUCCESS,
 } from "../constants";
 
-export interface UserListState {
+export interface ProductsDataState {
   loading: boolean;
   success: boolean;
   failure: boolean;
-  data?: User[];
+  data?: ProductsData;
+  searchProductId?: number;
   error?: AxiosError;
 }
 
-const initialState: UserListState = {
+const initialState: ProductsDataState = {
   loading: false,
   success: false,
   failure: false,
 };
 
-export const UserListReducer = (
+export const ProductsDataReducer = (
   //  eslint-disable-next-line  @typescript-eslint/default-param-last
-  state: UserListState = initialState,
-  action: UserListAction,
-): UserListState => {
+  state: ProductsDataState = initialState,
+  action: ProductsDataAction,
+): ProductsDataState => {
   switch (action.type) {
-    case USER_LIST_REQUEST:
+    case PRODUCTS_DATA_REQUEST:
       return {
         ...state,
         loading: true,
@@ -35,20 +37,25 @@ export const UserListReducer = (
         failure: false,
         error: undefined,
       };
-    case USER_LIST_SUCCESS:
+    case PRODUCTS_DATA_SUCCESS:
       return {
         ...state,
         loading: false,
         success: true,
         data: action.data,
       };
-    case USER_LIST_FAILURE:
+    case PRODUCTS_DATA_FAILURE:
       return {
         ...state,
         loading: false,
         failure: true,
         success: false,
         error: action.error,
+      };
+    case SEARCH_PRODUCT_ID:
+      return {
+        ...state,
+        searchProductId: action.id,
       };
     default:
       return state;
