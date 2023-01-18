@@ -1,3 +1,7 @@
-import productsData from "./productsData";
+import { takeEvery } from "redux-saga/effects";
+import { productsDataRequest } from "../slices";
+import ProductsDataRequestSaga from "./productsData";
 
-export const ProductsDataRequestSaga = productsData;
+export function* appSaga() {
+  yield takeEvery(productsDataRequest.type, ProductsDataRequestSaga);
+}

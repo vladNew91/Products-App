@@ -5,3 +5,4 @@ export * from "./HeaderComponent";
 export * from "./SearchComponent";
 export * from "./ModalComponent";
 export * from "./ErrorAlertComponent";
+export * from "./TableSceletonComponent";

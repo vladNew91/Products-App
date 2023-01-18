@@ -1,14 +1,18 @@
 import { useEffect, memo } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { productsDataRequest } from "../../modules/actions";
+import { productsDataRequest } from "../../modules/slices";
 import {
   selectProductsDataError,
   selectProductsData,
   selectSearchProductId,
 } from "../../modules/selectors";
-import { ProductsTableComponent, ErrorAlertComponent } from "../../components";
+import {
+  ProductsTableComponent,
+  ErrorAlertComponent,
+  TableSceletonComponent,
+} from "../../components";
 
-export const ProductsTableContainer: React.FC = memo((): JSX.Element | null => {
+export const ProductsTableContainer: React.FC = memo((): JSX.Element => {
   const productsData = useSelector(selectProductsData);
   const searchedProductId = useSelector(selectSearchProductId);
   const error = useSelector(selectProductsDataError);
@@ -19,14 +23,16 @@ export const ProductsTableContainer: React.FC = memo((): JSX.Element | null => {
     dispatch(productsDataRequest());
   }, [dispatch]);
 
-  if (!productsData) return null;
-
   return (
     <>
-      <ProductsTableComponent
-        productsData={productsData}
-        searchedProductId={searchedProductId}
-      />
+      {!productsData ? (
+        <TableSceletonComponent />
+      ) : (
+        <ProductsTableComponent
+          productsData={productsData}
+          searchedProductId={searchedProductId}
+        />
+      )}
 
       {error && <ErrorAlertComponent error={error.message} />}
     </>

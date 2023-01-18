@@ -1,6 +1,6 @@
 import { useState, useCallback, memo } from "react";
 import { useDispatch } from "react-redux";
-import { searchProductId } from "../../modules/actions";
+import { searchProductId } from "../../modules/slices";
 import { HeaderComponent } from "../../components";
 import { deleteNonNumbers } from "../../helpers";
 

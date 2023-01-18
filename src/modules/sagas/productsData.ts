@@ -1,31 +1,23 @@
+import { Action } from "@reduxjs/toolkit";
 import axios, { AxiosResponse, AxiosError } from "axios";
 import { call, CallEffect, put, PutEffect } from "redux-saga/effects";
+import { productsDataFailure, productsDataSuccess } from "../slices";
 import { ProductsData } from "../../types";
-import {
-  productsDataFailure,
-  productsDataSuccess,
-  ProductsDataFailure,
-  ProductsDataSuccess,
-} from "../actions";
 
 const API = "https://reqres.in/api/products";
 
-export interface Response<T> {
-  data: T;
-}
-
-function requestProductsData() {
-  return axios(API);
+function productsDataReguest() {
+  return axios({
+    method: "get",
+    url: API,
+  });
 }
 
 export default function* ProductsDataRequestSaga(): Generator<
-  | CallEffect<AxiosResponse<ProductsData>>
-  | PutEffect<ProductsDataSuccess | ProductsDataFailure>
+  CallEffect<AxiosResponse<ProductsData>> | PutEffect<Action>
 > {
   try {
-    const { data } = (yield call(
-      requestProductsData,
-    )) as Response<ProductsData>;
+    const { data } = (yield call(productsDataReguest)) as ProductsData;
 
     yield put(productsDataSuccess(data));
   } catch (error) {
