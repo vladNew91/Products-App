@@ -1,11 +1,9 @@
-import { useEffect, memo } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { productsDataRequest } from "../../modules/slices";
-import {
-  selectProductsDataError,
-  selectProductsData,
-  selectSearchProductId,
-} from "../../modules/selectors";
+import { memo } from "react";
+import { useQuery } from "react-query";
+import { useSelector } from "react-redux";
+import { productsDataReguest } from "../../helpers";
+import { selectSearchProductId } from "../../modules/selectors";
+import { ProductsData } from "../../types";
 import {
   ProductsTableComponent,
   ErrorAlertComponent,
@@ -13,28 +11,24 @@ import {
 } from "../../components";
 
 export const ProductsTableContainer: React.FC = memo((): JSX.Element => {
-  const productsData = useSelector(selectProductsData);
   const searchedProductId = useSelector(selectSearchProductId);
-  const error = useSelector(selectProductsDataError);
 
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(productsDataRequest());
-  }, [dispatch]);
+  const { data, isLoading, isError, error } = useQuery<ProductsData, Error>(
+    "products",
+    productsDataReguest,
+  );
 
   return (
     <>
-      {!productsData ? (
-        <TableSceletonComponent />
-      ) : (
+      {isLoading && <TableSceletonComponent />}
+      {isError && <ErrorAlertComponent error={error.message} />}
+
+      {data && (
         <ProductsTableComponent
-          productsData={productsData}
+          productsData={data}
           searchedProductId={searchedProductId}
         />
       )}
-
-      {error && <ErrorAlertComponent error={error.message} />}
     </>
   );
 });
