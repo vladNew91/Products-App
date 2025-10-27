@@ -5,6 +5,7 @@ import { productsDataFailure, productsDataSuccess } from "../slices";
 import { ProductsData } from "../../types";
 
 const API = "https://reqres.in/api/products";
+axios.defaults.headers["X-API-KEY"] = "reqres-free-v1";
 
 function productsDataReguest() {
   return axios({
