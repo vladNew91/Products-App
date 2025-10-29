@@ -21,7 +21,7 @@
 6. [Axios](https://axios-http.com/docs/intro).
 
 ### How to use:
-Clone the repository. In the project directory, you can run:
-`yarn` - install dependences.
-`yarn start` - runs the app in the development mode.
+Clone the repository. In the project directory, you can run:\
+`yarn` - install dependences.\
+`yarn start` - runs the app in the development mode.\
 `yarn build` - builds the app for production to the `build` folder.
