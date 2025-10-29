@@ -8,7 +8,11 @@ export const deleteNonNumbers = (str: string): string => {
 const API = "https://reqres.in/api/products";
 
 export async function productsDataReguest() {
-  const response: AxiosResponse<ProductsData> = await axios.get(API);
+  const response: AxiosResponse<ProductsData> = await axios({
+    method: "get",
+    url: API,
+    headers: { "x-api-key": "reqres-free-v1" },
+  });
 
   return response.data;
 }
