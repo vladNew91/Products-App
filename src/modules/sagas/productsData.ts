@@ -11,6 +11,10 @@ function productsDataReguest() {
   return axios({
     method: "get",
     url: API,
+    headers: {
+      "x-api-key": "reqres_b442a7b8934f478aa35707eee7d4bcad",
+      "Content-Type": "application/json",
+    },
   });
 }
 
